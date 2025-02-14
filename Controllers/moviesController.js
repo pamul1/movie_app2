@@ -10,6 +10,8 @@ export const getMovie = async (req, res) => {
 
 export const postMovie = async (req, res) => {
 
+    const tmp = req.body
+
     if (!tmp.movie_id) {
         res.status(300).json({ message: "Field movie_id is empty" })
         return
@@ -50,6 +52,9 @@ export const postMovie = async (req, res) => {
 
 export const putMovie = async (req, res) => {
 
+    const tmp = req.body
+    const movie_id = req.params.id
+
     if (!tmp.title) {
         res.status(300).json({ message: "Field title is empty" })
         return
@@ -75,7 +80,7 @@ export const putMovie = async (req, res) => {
     }
 
     try {
-        const str = 'update into movies (movie_id, title, release_year, genre, duration) values ($1, $2, $3, $4, $5)'
+        const str = 'update from movies set title = $1, release_year = $2, genre = $3, duration = $4 where movie_id = $5'
         const arr = [tmp.title, tmp.release_year, tmp.genre, tmp.duration, movie_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Movie Updated" })
@@ -87,6 +92,8 @@ export const putMovie = async (req, res) => {
 }
 
 export const deleteMovie = async (req, res) => {
+
+    const movie_id = req.params.id
 
     if (!movie_id){
         res.status(300).json({message: "Field movie_id is empty"})

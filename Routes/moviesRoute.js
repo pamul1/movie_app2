@@ -1,7 +1,7 @@
 import express from 'express'
 export const movies = express()
 movies.use(express.json())
-import { getMovie, postMovie, putMovie, deleteMovie } from '../controller/moviesController.js'
+import { getMovie, postMovie, putMovie, deleteMovie } from '../Controllers/moviesController.js'
 
 movies.get('/movies', getMovie)
 movies.post('/movies', postMovie)

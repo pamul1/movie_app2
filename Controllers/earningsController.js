@@ -9,11 +9,8 @@ export const getEarning = async (req, res) => {
 }
 
 export const postEarning = async (req, res) => {
-
-    if (!tmp.earning_id) {
-        res.status(300).json({ message: "Field earning_id is empty" })
-        return
-    }
+   
+    const tmp = req.body
 
     if (!tmp.movie_id) {
         res.status(300).json({ message: "Field movie_id is empty" })
@@ -31,8 +28,8 @@ export const postEarning = async (req, res) => {
     }
 
     try {
-        const str = 'insert into earnings (earning_id, movie_id, country, revenue) values ($1, $2, $3, $4)'
-        const arr = [tmp.earning_id, tmp.movie_id, tmp.country, tmp.revenue]
+        const str = 'insert into earnings ( movie_id, country, revenue) values ($1, $2, $3)'
+        const arr = [ tmp.movie_id, tmp.country, tmp.revenue]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Earning Added" })
         return
@@ -44,6 +41,9 @@ export const postEarning = async (req, res) => {
 }
 
 export const putEarning = async (req, res) => {
+
+    const tmp = req.body
+    const earning_id = req.params.id
 
     if (!tmp.movie_id) {
         res.status(300).json({ message: "Field movie_id is empty" })
@@ -65,7 +65,7 @@ export const putEarning = async (req, res) => {
     }
 
     try {
-        const str = 'update into earnings (earning_id, movie_id, country, revenue) values ($1, $2, $3, $4)'
+        const str = 'update from earnings set movie_id = $1, country = $2, revenue = $3 where earning_id = $4'
         const arr = [tmp.movie_id, tmp.country, tmp.revenue, earning_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Earning Updated" })
@@ -77,6 +77,8 @@ export const putEarning = async (req, res) => {
 }
 
 export const deleteEarning = async (req, res) => {
+
+    const earning_id = req.params.id
 
     if (!earning_id){
         res.status(300).json({message: "Field earning_id is empty"})

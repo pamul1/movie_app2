@@ -10,10 +10,7 @@ export const getActor = async (req, res) => {
 
 export const postActor = async (req, res) => {
 
-    if (!tmp.actor_id) {
-        res.status(300).json({ message: "Field actor_id is empty" })
-        return
-    }
+    const tmp = req.body
 
     if (!tmp.name) {
         res.status(300).json({ message: "Field name is empty" })
@@ -45,6 +42,10 @@ export const postActor = async (req, res) => {
 
 export const putActor = async (req, res) => {
 
+    
+    const tmp = req.body
+    const actor_id = req.params.id
+
     if (!tmp.name) {
         res.status(300).json({ message: "Field name is empty" })
         return
@@ -65,7 +66,7 @@ export const putActor = async (req, res) => {
     }
 
     try {
-        const str = 'update into actors (actor_id, name, date_of_birth, nationality) values ($1, $2, $3, $4)'
+        const str = 'update from actors set name = $1, date_of_birth = $2, nationality = $3 where actor_id = $4'
         const arr = [tmp.name, tmp.date_of_birth, tmp.nationality, actor_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Actor Updated" })
@@ -77,6 +78,8 @@ export const putActor = async (req, res) => {
 }
 
 export const deleteActor = async (req, res) => {
+
+    const actor_id = req.params.id
 
     if (!actor_id){
         res.status(300).json({message: "Field actor_id is empty"})
