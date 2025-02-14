@@ -1,4 +1,4 @@
-import { db } from "../db/cn.js"
+import { db } from "../cn.js"
 
 export const getEarning = async (req, res) => {
 
@@ -34,7 +34,7 @@ export const postEarning = async (req, res) => {
         res.status(200).json({ message: "Earning Added" })
         return
     } catch (err) {
-        res.status(500).json({ message: err })
+        res.status(500).json({message: err.message})
         return
     }
 
@@ -92,7 +92,7 @@ export const deleteEarning = async (req, res) => {
         res.status(200).json({ message: "Earning Deleted" })
         return
     } catch(err){
-        res.status(500).json({message:err})
+        res.status(500).json({message:err.message})
         return
     }
 

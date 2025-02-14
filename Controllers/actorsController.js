@@ -1,4 +1,4 @@
-import { db } from "../db/cn.js"
+import { db } from "../cn.js"
 
 export const getActor = async (req, res) => {
 
@@ -28,13 +28,13 @@ export const postActor = async (req, res) => {
     }
 
     try {
-        const str = 'insert into actors (actor_id, name, date_of_birth, nationality) values ($1, $2, $3, $4)'
-        const arr = [tmp.actor_id, tmp.name, tmp.date_of_birth, tmp.nationality]
+        const str = 'insert into actors (name, date_of_birth, nationality) values ($1, $2, $3)'
+        const arr = [tmp.name, tmp.date_of_birth, tmp.nationality]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Actor Added" })
         return
     } catch (err) {
-        res.status(500).json({ message: err })
+        res.status(500).json({ message: err.message})
         return
     }
 
@@ -93,7 +93,7 @@ export const deleteActor = async (req, res) => {
         res.status(200).json({ message: "Actor Deleted" })
         return
     } catch(err){
-        res.status(500).json({message:err})
+        res.status(500).json({message: err.message})
         return
     }
 

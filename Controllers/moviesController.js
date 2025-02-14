@@ -1,4 +1,4 @@
-import { db } from "../db/cn.js"
+import { db } from "../cn.js"
 
 export const getMovie = async (req, res) => {
 
@@ -11,12 +11,7 @@ export const getMovie = async (req, res) => {
 export const postMovie = async (req, res) => {
 
     const tmp = req.body
-
-    if (!tmp.movie_id) {
-        res.status(300).json({ message: "Field movie_id is empty" })
-        return
-    }
-
+    
     if (!tmp.title) {
         res.status(300).json({ message: "Field title is empty" })
         return
@@ -38,13 +33,13 @@ export const postMovie = async (req, res) => {
     }
 
     try {
-        const str = 'insert into movies (movie_id, title, release_year, genre, duration) values ($1, $2, $3, $4, $5)'
-        const arr = [tmp.movie_id, tmp.title, tmp.release_year, tmp.genre, tmp.duration]
+        const str = 'insert into movies (title, release_year, genre, duration) values ($1, $2, $3, $4)'
+        const arr = [tmp.title, tmp.release_year, tmp.genre, tmp.duration]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Movie Created" })
         return
     } catch (err) {
-        res.status(500).json({ message: err })
+        res.status(500).json({ message: err.message })
         return
     }
 
