@@ -2,7 +2,7 @@ import { db } from "../cn.js"
 
 export const getActor = async (req, res) => {
 
-    const sql = 'select * from actors'
+    const sql = "select name, to_char(date_of_birth,'yyyy-mm-dd') date_of_birth , nationality,actor_id  from actors"
     const result = await db.query(sql)
     res.status(200).json(result)
 
