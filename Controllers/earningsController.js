@@ -2,13 +2,13 @@ import { db } from "../cn.js"
 
 export const getEarning = async (req, res) => {
 
-    const sql = `select a.earnings_id, 
+    const sql = `select a.earning_id, 
                         a.movie_id, 
                         a.country, 
                         '$'||trim(to_char(a.revenue, '999,999,999')) revenue, 
                         b.title as movie_name
                         from earnings a
-                        inner join movie b 
+                        inner join movies b 
                         on a.movie_id = b.movie_id`;
     try {
     const result = await db.query(sql)

@@ -3,7 +3,7 @@ export const movies = express()
 movies.use(express.json())
 import { getMovie, postMovie, putMovie, deleteMovie } from '../Controllers/moviesController.js'
 
-movies.get('/movies', getMovie)
-movies.post('/movies', postMovie)
-movies.put('/movies/:id', putMovie)
-movies.delete('/movies/:id', deleteMovie)
+movies.get('/', getMovie)
+movies.post('/', postMovie)
+movies.put('/:id', putMovie)
+movies.delete('/:id', deleteMovie)
