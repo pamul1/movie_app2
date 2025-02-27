@@ -1,3 +1,4 @@
+-- Active: 1740452503253@@127.0.0.1@5432@codex_academy_9gst@public
 CREATE TABLE movie (
   movie_id SERIAL PRIMARY KEY,
   title TEXT NOT NULL,
@@ -14,14 +15,14 @@ CREATE TABLE actor (
 );
 
 CREATE TABLE moviecasts (
-  movie_id INT REFERENCES movies(movie_id),
-  actor_id INT REFERENCES actors(actor_id),
+  movie_id INT REFERENCES movie(movie_id),
+  actor_id INT REFERENCES actor(actor_id),
   role TEXT NOT NULL
 );
 
 CREATE TABLE earning (
   earning_id SERIAL PRIMARY KEY,
-  movie_id INT REFERENCES movies(movie_id),
+  movie_id INT REFERENCES movie(movie_id),
   country TEXT NOT NULL,
   revenue INT NOT NULL
 );

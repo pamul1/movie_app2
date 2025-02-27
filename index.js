@@ -36,6 +36,10 @@ app.use('/actors', tokenValidation, actors)
 app.use('/earnings', tokenValidation, earnings)
 app.use('/auth', authUser);
 
+app.post('/validateSession', tokenValidation, (req, res) => {
+    res.json({ message: "Valid Token"})
+})
+
 const port = process.env.PORT || 8080
 
 app.listen(port);
