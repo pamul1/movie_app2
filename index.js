@@ -36,7 +36,7 @@ app.use('/actors', tokenValidation, actors)
 app.use('/earnings', tokenValidation, earnings)
 app.use('/auth', authUser);
 
-app.post('/validateSession', tokenValidation, (req, res) => {
+app.post('/validateSesion', tokenValidation, (req, res) => {
     res.json({ message: "Valid Token"})
 })
 
