@@ -87,7 +87,7 @@ export const deleteActor = async (req, res) => {
     }
 
     try{
-        const str = 'delete from actors (actor_id) values ($1)'
+        const str = 'delete from actors where actor_id = $1'
         const arr = [actor_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Actor Deleted" })

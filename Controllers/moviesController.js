@@ -96,7 +96,7 @@ export const deleteMovie = async (req, res) => {
     }
 
     try{
-        const str = 'delete from movies (movie_id) values ($1)'
+        const str = 'delete from movies where movie_id = $1'
         const arr = [movie_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Movie Deleted" })

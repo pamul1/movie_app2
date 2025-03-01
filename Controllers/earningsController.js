@@ -97,7 +97,7 @@ export const deleteEarning = async (req, res) => {
     }
 
     try {
-        const str = 'delete from earnings (earning_id) values ($1)'
+        const str = 'delete from earnings where earning_id = $1'
         const arr = [earning_id]
         const result = await db.query(str, arr)
         res.status(200).json({ message: "Earning Deleted" })
